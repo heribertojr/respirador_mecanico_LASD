@@ -34,7 +34,7 @@ char recebido[10] = {';','H','H','H','x','L','L','L',':','\0'};
 float conv_adc0 = 0, conv_adc1 = 0, media_conv_adc0 = 0, media_conv_adc1 = 0;
 long int tempo_ms = 0;
 
-ISR (INT0_vect){ //Controle da interrupção PD2
+ISR (INT0_vect){ //Controle da interrupÃ§Ã£o PD2
 	if(sel == 2)
 		if(FreqRespiracao<30)
 			FreqRespiracao++;
@@ -49,7 +49,7 @@ ISR (INT0_vect){ //Controle da interrupção PD2
 	OCR1B = ((valve/10)*200) + 2000;
 }
 
-ISR (INT1_vect){ //Controle da interrupção PD3
+ISR (INT1_vect){ //Controle da interrupÃ§Ã£o PD3
 	if(sel == 2)
 		if(FreqRespiracao>5)
 			FreqRespiracao--;
@@ -114,7 +114,7 @@ ISR (ADC_vect)
 		{
 			ADMUX = 0b01000001;
 			DIDR0 = 0b00111101;
-			conv_adc1 = (((5*(ADC))/1024.0)*25); //O2
+			conv_adc1 = ((((5*(ADC))/1024.0)*25)-25); //O2
 			
 			flag_o2++;
 			
@@ -181,7 +181,7 @@ void USART_init (unsigned int ubrr);
 int main(void)
 {
 	//GPIO
-	DDRB = 0b00000110; //Habilita os pinos PB0...PB7 como saídas.
+	DDRB = 0b00000110; //Habilita os pinos PB0...PB7 como saÃ­das.
 	DDRC = 0b11111100; //Habilita os pinos PC0 e PC1 como entradas.
 	DDRD = 0b11100011;   // Habilita os pino PD2, PD3 e PD4 como entrada.
 	PORTB = 0b01000000;
@@ -191,8 +191,8 @@ int main(void)
 	//Timers
 	TCCR0A = 0b00000010; //Habilita o modo CTC do TC0.
 	TCCR0B = 0b00000011; //Habilita o prescaler do TC0 como 64.
-	OCR0A = 249; //Ajusta o comparador para o TC0 contar até 249.
-	TIMSK0 = 0b00000010; //Habilita a interrupção na igualdade de comparação com o TC0.
+	OCR0A = 249; //Ajusta o comparador para o TC0 contar atÃ© 249.
+	TIMSK0 = 0b00000010; //Habilita a interrupÃ§Ã£o na igualdade de comparaÃ§Ã£o com o TC0.
 	ICR1 = 39999;
 	TCCR1A = 0b10100010;
 	TCCR1B = 0b00011010;
@@ -201,7 +201,7 @@ int main(void)
 	ADCSRA = 0b11101111;
 	ADCSRB = 0x00;
 	
-	//Interrupções
+	//InterrupÃ§Ãµes
 	EICRA = 0b00001010;
 	EIMSK = 0b00000011;
 	PCICR = 0b00000101;
